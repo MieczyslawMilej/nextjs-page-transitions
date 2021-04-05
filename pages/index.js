@@ -20,19 +20,25 @@ const fadeInUp = {
 			duration: 0.6,
 			ease: easing
 		}
+	},
+	scale: {
+		scale: 1.1,
+		transition: {
+			type: "spring"
+		}
 	}
 };
 
 const stagger = {
 	animate: {
 		transition: {
-			staggerChildren: 0.1
+			staggerChildren: 0.2
 		}
 	}
 };
 
 const Index = props => (
-	<motion.div exit={{ opacity: 0 }} initial="initial" animate="animate">
+	<motion.div exit={{opacity: 0}} initial="initial" animate="animate">
 		<div className="container center">
 			<div className="title">
 				<h1>Select a protein</h1>
@@ -45,16 +51,16 @@ const Index = props => (
 						as={`/products/${product.id}`}
 					>
 						<motion.div
-							variants={fadeInUp}
+							variants={fadeInUp} whileHover={{scale:1.05}}
+              whileTap={{scale: 0.9}}
 							className="card"
 						>
 							<span className="category">
 								Protein
 							</span>
 							<motion.img
-								initial={{ x: 60, opacity: 0 }}
-								animate={{ x: 0, opacity: 1 }}
-								transition={{ delay: 0.2 }}
+                initial={{ y: 60, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
 								key={product.image}
 								src={product.image}
 								width={250}
@@ -65,7 +71,9 @@ const Index = props => (
 								transition={{ delay: 0.35 }}
 								className="product-info"
 							>
-								<h4>{product.name}</h4>
+								<h4>
+									{product.name}
+								</h4>
 								<span>{product.price}</span>
 							</motion.div>
 						</motion.div>
@@ -78,7 +86,7 @@ const Index = props => (
 
 Index.getInitialProps = async function () {
 	const res = await fetch(
-		"http://my-json-server.typicode.com/wrongakram/demo/products"
+		"http://my-json-server.typicode.com/MieczyslawMilej/demo-data/products"
 	);
 	const data = await res.json();
 	return {
